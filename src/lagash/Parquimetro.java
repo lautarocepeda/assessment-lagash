@@ -2,7 +2,7 @@
 package lagash;
 
 
-public class Parquimetro implements IControladorParquimetro
+public class Parquimetro implements IControladorParquimetro, Cloneable
 {
     
     private Automovil autoEstacionado;
@@ -20,6 +20,27 @@ public class Parquimetro implements IControladorParquimetro
     public Parquimetro(int centavosPorHora)
     {
         this.centavosPorHora = centavosPorHora;
+    }
+    
+    
+    
+    
+    public Parquimetro clonar()
+    {
+        
+        Parquimetro parq;
+        
+        try
+        {
+            parq = (Parquimetro) super.clone();
+        }
+        catch(CloneNotSupportedException ex)
+        {
+            throw new RuntimeException(ex);
+        }
+        
+        return parq;
+        
     }
     
     
@@ -84,6 +105,7 @@ public class Parquimetro implements IControladorParquimetro
     
     
     
+    
     @Override
     public void estacionamientoFinalizado() 
     {         
@@ -98,10 +120,16 @@ public class Parquimetro implements IControladorParquimetro
                         ) ) * this.centavosPorHora;
         
         
+        System.out.println("[" + this.getPatente() + "] " 
+                            + "Importe => " 
+                            + importe);
+        
         // envio email para notificar el importe
         ServicioExterno.enviarEmail("Parquimetro - Importe"
                 , "Importe a pagar => $" + importe
                 , ServicioExterno.obtenerEmailPorPatente(this.getPatente()));
+        
+    
         
         
         // suponiendo que el email se envio corretamente, limpio el obj

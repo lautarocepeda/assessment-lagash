@@ -39,9 +39,9 @@ public class Automovil
     
     
     // agrega MINUTOS al tiempo que lleva estacionado el vehiculo
-    public void agregarTiempoEstacionado(int tiempo)
+    public void agregarTiempoEstacionado(int minutos)
     {
-        this.tiempoEstacionado += tiempo;
+        this.tiempoEstacionado += minutos;
     }
     
     public int getTiempoEstacionado()
